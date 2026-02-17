@@ -1,6 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import { useApplication } from '../../context/ApplicationContext';
 import { PartyPopper } from 'lucide-react';
+import styles from './Step5_ThankYou.module.css';
 
 export const Step5_ThankYou = () => {
     const { resetApplication } = useApplication();
@@ -12,12 +13,12 @@ export const Step5_ThankYou = () => {
     };
 
     return (
-        <div className="text-center py-12">
-            <div className="inline-flex items-center justify-center w-20 h-20 bg-green-100 rounded-full text-green-600 mb-6">
+        <div className={styles.container}>
+            <div className={styles.iconContainer}>
                 <PartyPopper size={40} />
             </div>
-            <h2 className="text-3xl font-bold text-gray-900 mb-4">Application Submitted!</h2>
-            <p className="text-gray-600 mb-8 max-w-md mx-auto">
+            <h2 className={styles.title}>Application Submitted!</h2>
+            <p className={styles.message}>
                 Thank you for applying. We have received your application and will review it shortly.
             </p>
 

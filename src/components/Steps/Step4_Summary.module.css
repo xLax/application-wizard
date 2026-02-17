@@ -1,0 +1,148 @@
+.pageTitle {
+    text-align: center;
+    font-size: 1.5rem;
+    line-height: 2rem;
+    margin-bottom: 2rem;
+    /* extending summary-title from global if needed, but defining specific here */
+    color: var(--primary);
+    font-weight: 700;
+}
+
+.section {
+    margin-bottom: 2rem;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 1rem;
+}
+
+.section.lastSection {
+    border-bottom: none;
+}
+
+.sectionTitle {
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: var(--primary);
+    margin-bottom: 1rem;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+}
+
+.label {
+    font-weight: 500;
+    color: var(--text-secondary);
+    font-size: 0.875rem;
+}
+
+.value {
+    font-weight: 600;
+    color: var(--text-main);
+}
+
+.link {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    color: #4f46e5;
+    /* indigo-600 */
+}
+
+/* Experience Cards */
+.experienceParams {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.experienceCard {
+    background-color: #f9fafb;
+    /* gray-50 */
+    padding: 1rem;
+    border-radius: 0.5rem;
+    border: 1px solid #f3f4f6;
+    /* gray-100 */
+}
+
+.roleTitle {
+    font-weight: 700;
+    color: #1f2937;
+    /* gray-800 */
+}
+
+.dateRange {
+    font-size: 0.875rem;
+    color: #4b5563;
+    /* gray-600 */
+    margin-bottom: 0.5rem;
+}
+
+.description {
+    color: #374151;
+    /* gray-700 */
+    white-space: pre-wrap;
+    font-size: 0.875rem;
+}
+
+/* Questionnaire */
+.noExperience {
+    color: #6b7280;
+    font-style: italic;
+}
+
+.questionsContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.questionRow {
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid #f3f4f6;
+    /* gray-100 */
+    padding-bottom: 0.5rem;
+}
+
+.questionLabel {
+    color: #4b5563;
+    /* gray-600 */
+}
+
+.questionAnswer {
+    font-weight: 500;
+    text-transform: capitalize;
+}
+
+.fileAttachment {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-top: 1rem;
+    background-color: #eef2ff;
+    /* indigo-50 */
+    padding: 0.75rem;
+    border-radius: 0.5rem;
+    border: 1px solid #e0e7ff;
+    /* indigo-100 */
+}
+
+.fileIcon {
+    color: #4f46e5;
+    /* indigo-600 */
+}
+
+.fileLabel {
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: #111827;
+    /* gray-900 */
+}
+
+.fileName {
+    font-size: 0.75rem;
+    color: #4f46e5;
+    /* indigo-600 */
+}

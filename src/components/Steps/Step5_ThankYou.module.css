@@ -1,0 +1,37 @@
+.container {
+    text-align: center;
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+}
+
+.iconContainer {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 5rem;
+    height: 5rem;
+    background-color: #dcfce7;
+    /* green-100 */
+    border-radius: 9999px;
+    color: #16a34a;
+    /* green-600 */
+    margin-bottom: 1.5rem;
+}
+
+.title {
+    font-size: 1.875rem;
+    line-height: 2.25rem;
+    font-weight: 700;
+    color: #111827;
+    /* gray-900 */
+    margin-bottom: 1rem;
+}
+
+.message {
+    color: #4b5563;
+    /* gray-600 */
+    margin-bottom: 2rem;
+    max-width: 28rem;
+    margin-left: auto;
+    margin-right: auto;
+}

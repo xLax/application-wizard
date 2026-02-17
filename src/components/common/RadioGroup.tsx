@@ -1,4 +1,6 @@
 import React from 'react';
+import styles from './RadioGroup.module.css';
+
 
 interface RadioOption {
     label: string;
@@ -17,24 +19,24 @@ interface RadioGroupProps {
 export const RadioGroup: React.FC<RadioGroupProps> = ({
     label,
     name,
-    options = [{ label: 'Yes', value: 'yes' }, { label: 'No', value: 'no' }],
+    options = [{ label: 'No', value: 'no' }, { label: 'Yes', value: 'yes' }],
     selectedValue,
     onChange,
     error
 }) => {
     return (
         <div className="form-group">
-            <label className="form-label text-base">{label}</label>
-            <div className="flex gap-6 mt-2">
+            <label className="form-label">{label}</label>
+            <div className={styles.container}>
                 {options.map((option) => (
-                    <label key={option.value} className="flex items-center gap-2 cursor-pointer">
+                    <label key={option.value} className={styles.option}>
                         <input
                             type="radio"
                             name={name}
                             value={option.value}
                             checked={selectedValue === option.value}
                             onChange={() => onChange(option.value)}
-                            className="w-4 h-4 text-indigo-600 focus:ring-indigo-500"
+                            className={styles.radio}
                         />
                         <span>{option.label}</span>
                     </label>

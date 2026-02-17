@@ -1,6 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import { useApplication } from '../../context/ApplicationContext';
 import { FileText } from 'lucide-react';
+import styles from './Step4_Summary.module.css';
 
 export const Step4_Summary = () => {
     const { data } = useApplication();
@@ -14,57 +15,57 @@ export const Step4_Summary = () => {
 
     return (
         <div>
-            <h2 className="summary-title text-center text-2xl mb-8">Review Your Application</h2>
+            <h2 className={styles.pageTitle}>Review Your Application</h2>
 
             {/* Personal Info */}
-            <section className="summary-section">
-                <h3 className="text-lg font-semibold text-primary mb-4">Personal Information</h3>
-                <div className="summary-grid">
-                    <div className="summary-item">
-                        <label>Full Name</label>
-                        <p>{data.personalInfo.fullName}</p>
+            <section className={styles.section}>
+                <h3 className={styles.sectionTitle}>Personal Information</h3>
+                <div className={styles.grid}>
+                    <div>
+                        <label className={styles.label}>Full Name</label>
+                        <p className={styles.value}>{data.personalInfo.fullName}</p>
                     </div>
-                    <div className="summary-item">
-                        <label>Email</label>
-                        <p>{data.personalInfo.email}</p>
+                    <div>
+                        <label className={styles.label}>Email</label>
+                        <p className={styles.value}>{data.personalInfo.email}</p>
                     </div>
-                    <div className="summary-item">
-                        <label>Phone</label>
-                        <p>{data.personalInfo.phone}</p>
+                    <div>
+                        <label className={styles.label}>Phone</label>
+                        <p className={styles.value}>{data.personalInfo.phone}</p>
                     </div>
-                    <div className="summary-item">
-                        <label>Location</label>
-                        <p>{data.personalInfo.city}, {data.personalInfo.country}</p>
+                    <div>
+                        <label className={styles.label}>Location</label>
+                        <p className={styles.value}>{data.personalInfo.city}, {data.personalInfo.country}</p>
                     </div>
                     {data.personalInfo.linkedinUrl && (
-                        <div className="summary-item">
-                            <label>LinkedIn</label>
-                            <p className="truncate text-indigo-600">{data.personalInfo.linkedinUrl}</p>
+                        <div>
+                            <label className={styles.label}>LinkedIn</label>
+                            <p className={styles.link}>{data.personalInfo.linkedinUrl}</p>
                         </div>
                     )}
                     {data.personalInfo.gitUrl && (
-                        <div className="summary-item">
-                            <label>GitHub</label>
-                            <p className="truncate text-indigo-600">{data.personalInfo.gitUrl}</p>
+                        <div>
+                            <label className={styles.label}>GitHub</label>
+                            <p className={styles.link}>{data.personalInfo.gitUrl}</p>
                         </div>
                     )}
                 </div>
             </section>
 
             {/* Work Experience */}
-            <section className="summary-section">
-                <h3 className="text-lg font-semibold text-primary mb-4">Work Experience</h3>
+            <section className={styles.section}>
+                <h3 className={styles.sectionTitle}>Work Experience</h3>
                 {data.workExperience.length === 0 ? (
-                    <p className="text-gray-500 italic">No work experience added.</p>
+                    <p className={styles.noExperience}>No work experience added.</p>
                 ) : (
-                    <div className="space-y-4">
-                        {data.workExperience.map((exp, i) => (
-                            <div key={exp.id} className="bg-gray-50 p-4 rounded-lg border border-gray-100">
-                                <h4 className="font-bold text-gray-800">{exp.role} at {exp.company}</h4>
-                                <p className="text-sm text-gray-600 mb-2">
+                    <div className={styles.experienceParams}>
+                        {data.workExperience.map((exp) => (
+                            <div key={exp.id} className={styles.experienceCard}>
+                                <h4 className={styles.roleTitle}>{exp.role} at {exp.company}</h4>
+                                <p className={styles.dateRange}>
                                     {exp.startDate} — {exp.isCurrentRole ? 'Present' : exp.endDate}
                                 </p>
-                                <p className="text-gray-700 whitespace-pre-wrap text-sm">{exp.description}</p>
+                                <p className={styles.description}>{exp.description}</p>
                             </div>
                         ))}
                     </div>
@@ -72,26 +73,26 @@ export const Step4_Summary = () => {
             </section>
 
             {/* Questionnaire */}
-            <section className="summary-section border-b-0">
-                <h3 className="text-lg font-semibold text-primary mb-4">Additional Information</h3>
-                <div className="space-y-3">
-                    <div className="flex justify-between border-b border-gray-100 pb-2">
-                        <span className="text-gray-600">Legal Authorization Constraints?</span>
-                        <span className="font-medium capitalize">{data.questionnaire.legalAuthorization}</span>
+            <section className={`${styles.section} ${styles.lastSection}`}>
+                <h3 className={styles.sectionTitle}>Additional Information</h3>
+                <div className={styles.questionsContainer}>
+                    <div className={styles.questionRow}>
+                        <span className={styles.questionLabel}>Legal Authorization Constraints?</span>
+                        <span className={styles.questionAnswer}>{data.questionnaire.legalAuthorization}</span>
                     </div>
-                    <div className="flex justify-between border-b border-gray-100 pb-2">
-                        <span className="text-gray-600">Available in 30 days?</span>
-                        <span className="font-medium capitalize">{data.questionnaire.availableIn30Days}</span>
+                    <div className={styles.questionRow}>
+                        <span className={styles.questionLabel}>Available in 30 days?</span>
+                        <span className={styles.questionAnswer}>{data.questionnaire.availableIn30Days}</span>
                     </div>
-                    <div className="flex justify-between border-b border-gray-100 pb-2">
-                        <span className="text-gray-600">Relocation Support?</span>
-                        <span className="font-medium capitalize">{data.questionnaire.relocationSupport}</span>
+                    <div className={styles.questionRow}>
+                        <span className={styles.questionLabel}>Relocation Support?</span>
+                        <span className={styles.questionAnswer}>{data.questionnaire.relocationSupport}</span>
                     </div>
-                    <div className="flex items-center gap-3 mt-4 bg-indigo-50 p-3 rounded-lg border border-indigo-100">
-                        <FileText className="text-indigo-600" />
+                    <div className={styles.fileAttachment}>
+                        <FileText className={styles.fileIcon} />
                         <div>
-                            <p className="text-sm font-medium text-gray-900">Attached CV</p>
-                            <p className="text-xs text-indigo-600">{data.questionnaire.cvFile?.name || "No file uploaded"}</p>
+                            <p className={styles.fileLabel}>Attached CV</p>
+                            <p className={styles.fileName}>{data.questionnaire.cvFile?.name || "No file uploaded"}</p>
                         </div>
                     </div>
                 </div>

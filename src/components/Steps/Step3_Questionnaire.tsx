@@ -5,6 +5,7 @@ import { questionnaireSchema } from '../../schemas/validation';
 import type { Questionnaire } from '../../types';
 import { Upload } from 'lucide-react';
 import { RadioGroup } from '../common/RadioGroup';
+import styles from './Step3_Questionnaire.module.css';
 
 export const Step3_Questionnaire = () => {
     const { data, updateQuestionnaire } = useApplication();
@@ -53,7 +54,7 @@ export const Step3_Questionnaire = () => {
         <div>
             <h2 className="summary-title">Additional Information</h2>
 
-            <div className="space-y-6">
+            <div className={styles.container}>
                 <RadioGroup
                     label="Are there any legal work authorization constraints? *"
                     name="legalAuthorization"
@@ -78,26 +79,26 @@ export const Step3_Questionnaire = () => {
                     error={errors.relocationSupport}
                 />
 
-                <div className="form-group pt-4 border-t border-gray-100">
-                    <label className="form-label text-base">Upload CV (PDF/DOCX) *</label>
-                    <div className={`mt-2 flex justify-center px-6 pt-5 pb-6 border-2 border-dashed rounded-lg cursor-pointer hover:bg-gray-50 transition-colors ${errors.cvFile ? 'border-red-400 bg-red-50' : 'border-gray-300'}`}>
-                        <div className="space-y-1 text-center relative">
-                            <Upload className="mx-auto h-12 w-12 text-gray-400" />
-                            <div className="flex text-sm text-gray-600 justify-center">
+                <div className={`${styles.fileUploadGroup} form-group`}>
+                    <label className="form-label">Upload CV (PDF/DOCX) *</label>
+                    <div className={`${styles.uploadArea} ${errors.cvFile ? styles.uploadAreaError : ''}`}>
+                        <div className={styles.uploadContent}>
+                            <Upload className={styles.uploadIcon} />
+                            <div className={styles.uploadTextContainer}>
                                 <label
                                     htmlFor="file-upload"
-                                    className="relative cursor-pointer rounded-md font-medium text-indigo-600 hover:text-indigo-500 focus-within:outline-none"
+                                    className={styles.uploadLabel}
                                 >
                                     <span>Upload a file</span>
-                                    <input id="file-upload" name="file-upload" type="file" className="sr-only" accept=".pdf,.docx,.doc,application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document" onChange={handleFileChange} />
+                                    <input id="file-upload" name="file-upload" type="file" className={styles.visuallyHidden} accept=".pdf,.docx,.doc,application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document" onChange={handleFileChange} />
                                 </label>
-                                <p className="pl-1">or drag and drop</p>
+                                <p className={styles.dragText}>or drag and drop</p>
                             </div>
-                            <p className="text-xs text-gray-500">
+                            <p className={styles.fileInfo}>
                                 PDF, DOCX up to 10MB
                             </p>
                             {answers.cvFile && (
-                                <p className="text-sm font-semibold text-indigo-600 mt-2">
+                                <p className={styles.selectedFile}>
                                     Selected: {answers.cvFile.name}
                                 </p>
                             )}
@@ -108,10 +109,10 @@ export const Step3_Questionnaire = () => {
             </div>
 
             <div className="actions-row with-errors">
-                <div className="flex-1">
+                <div className={styles.flex1}>
                     {globalError && <span className="error-message">{globalError}</span>}
                 </div>
-                <div className="flex gap-4">
+                <div className={styles.flexContainer}>
                     <button className="btn btn-outline" onClick={() => navigate('/work-experience')}>
                         Back
                     </button>

@@ -4,6 +4,7 @@ import { useApplication } from '../../context/ApplicationContext';
 import { personalInfoSchema } from '../../schemas/validation';
 import type { PersonalInfo } from '../../types';
 import { FormField } from '../common/FormField';
+import styles from './Step1_PersonalInfo.module.css';
 
 export const Step1_PersonalInfo = () => {
     const { data, updatePersonalInfo } = useApplication();
@@ -50,7 +51,7 @@ export const Step1_PersonalInfo = () => {
                 placeholder="John Doe"
             />
 
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
+            <div className={styles.gridContainer}>
                 <FormField
                     label="Email *"
                     type="email"
@@ -72,7 +73,7 @@ export const Step1_PersonalInfo = () => {
                 />
             </div>
 
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
+            <div className={styles.gridContainer}>
                 <FormField
                     label="City *"
                     type="text"
@@ -114,7 +115,7 @@ export const Step1_PersonalInfo = () => {
 
             <div className="actions-row">
                 {Object.keys(errors).length > 0 && (
-                    <div className="error-message" style={{ marginRight: 'auto' }}>
+                    <div className={styles.errorMessage}>
                         Please fix the errors above.
                     </div>
                 )}

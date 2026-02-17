@@ -5,6 +5,7 @@ import { workExperienceItemSchema } from '../../schemas/validation';
 import type { WorkExperience } from '../../types';
 import { Trash2, Plus } from 'lucide-react';
 import { FormField } from '../common/FormField';
+import styles from './Step2_WorkExperience.module.css';
 
 export const Step2_WorkExperience = () => {
     const { data, updateWorkExperience } = useApplication();
@@ -94,6 +95,25 @@ export const Step2_WorkExperience = () => {
                     newErrors[`${exp.id}.${String(field)}`] = err.message;
                 });
             }
+
+            // Additional validation: end date cannot be before start date
+            if (!exp.isCurrentRole && exp.startDate && exp.endDate) {
+                if (new Date(exp.endDate) < new Date(exp.startDate)) {
+                    isValid = false;
+                    newErrors[`${exp.id}.endDate`] = 'End date cannot be before start date';
+                }
+            }
+
+            // Additional validation: start date cannot be in the future
+            if (exp.startDate) {
+                const today = new Date();
+                today.setHours(0, 0, 0, 0);
+                const startDate = new Date(exp.startDate);
+                if (startDate > today) {
+                    isValid = false;
+                    newErrors[`${exp.id}.startDate`] = 'Start date cannot be in the future';
+                }
+            }
         });
 
         setErrors(newErrors);
@@ -114,19 +134,19 @@ export const Step2_WorkExperience = () => {
             <h2 className="summary-title">Work Experience</h2>
 
             {experiences.map((exp, index) => (
-                <div key={exp.id} className="experience-block animate-fade-in">
-                    <div className="flex justify-between items-start mb-4">
-                        <h3 className="font-semibold text-gray-700">Experience #{index + 1}</h3>
+                <div key={exp.id} className={styles.experienceBlock}>
+                    <div className={styles.header}>
+                        <h3>Experience #{index + 1}</h3>
                         <button
                             onClick={() => handleRemoveExperience(exp.id)}
-                            className="text-red-500 hover:text-red-700 p-1"
+                            className={styles.deleteBtn}
                             title="Remove"
                         >
                             <Trash2 size={18} />
                         </button>
                     </div>
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div className={styles.gridContainer}>
                         <FormField
                             label="Company *"
                             type="text"
@@ -161,21 +181,21 @@ export const Step2_WorkExperience = () => {
                                     className={`form-input ${errors[`${exp.id}.endDate`] ? 'error' : ''}`}
                                 />
                             ) : (
-                                <div className="py-2 text-gray-400 italic">Current Position</div>
+                                <div className={styles.currentPosition}>Current Position</div>
                             )}
                             {errors[`${exp.id}.endDate`] && <p className="error-message">{errors[`${exp.id}.endDate`]}</p>}
                         </div>
                     </div>
 
                     <div className="form-group">
-                        <label className="flex items-center gap-2 cursor-pointer">
+                        <label className={styles.checkboxLabel}>
                             <input
                                 type="checkbox"
                                 checked={exp.isCurrentRole}
                                 onChange={(e) => handleChange(exp.id, 'isCurrentRole', e.target.checked)}
-                                className="w-4 h-4 text-indigo-600 rounded focus:ring-indigo-500"
+                                className={styles.checkbox}
                             />
-                            <span className="text-sm font-medium text-gray-700">I still work here</span>
+                            <span className={styles.checkboxText}>I still work here</span>
                         </label>
                     </div>
 
@@ -185,22 +205,22 @@ export const Step2_WorkExperience = () => {
                         value={exp.description}
                         onChange={(e) => handleChange(exp.id, 'description', e.target.value)}
                         error={errors[`${exp.id}.description`]}
-                        className="min-h-[100px]"
+                        className={styles.textarea}
                     />
                 </div>
             ))}
 
             {experiences.length < 10 && (
                 <button onClick={handleAddExperience} className="btn btn-add">
-                    <Plus size={18} className="mr-2 inline" /> Add Experience
+                    <Plus size={18} className={styles.icon} /> Add Experience
                 </button>
             )}
 
             <div className="actions-row with-errors">
-                <div className="flex-1">
-                    {globalError && <span className="error-message flex items-center">{globalError}</span>}
+                <div className={styles.flex1}>
+                    {globalError && <span className="error-message">{globalError}</span>}
                 </div>
-                <div className="flex gap-4">
+                <div className={styles.flexContainer}>
                     <button className="btn btn-outline" onClick={() => navigate('/')}>
                         Back
                     </button>

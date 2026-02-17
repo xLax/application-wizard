@@ -5,16 +5,45 @@ import { Step2_WorkExperience } from './components/Steps/Step2_WorkExperience';
 import { Step3_Questionnaire } from './components/Steps/Step3_Questionnaire';
 import { Step4_Summary } from './components/Steps/Step4_Summary';
 import { Step5_ThankYou } from './components/Steps/Step5_ThankYou';
+import { ProtectedRoute } from './components/ProtectedRoute';
 
 function App() {
   return (
     <Routes>
       <Route element={<Layout />}>
         <Route path="/" element={<Step1_PersonalInfo />} />
-        <Route path="/work-experience" element={<Step2_WorkExperience />} />
-        <Route path="/questionnaire" element={<Step3_Questionnaire />} />
-        <Route path="/summary" element={<Step4_Summary />} />
-        <Route path="/thank-you" element={<Step5_ThankYou />} />
+        <Route 
+          path="/work-experience" 
+          element={
+            <ProtectedRoute requirePersonalInfo>
+              <Step2_WorkExperience />
+            </ProtectedRoute>
+          } 
+        />
+        <Route 
+          path="/questionnaire" 
+          element={
+            <ProtectedRoute requirePersonalInfo requireWorkExperience>
+              <Step3_Questionnaire />
+            </ProtectedRoute>
+          } 
+        />
+        <Route 
+          path="/summary" 
+          element={
+            <ProtectedRoute requirePersonalInfo requireWorkExperience requireQuestionnaire>
+              <Step4_Summary />
+            </ProtectedRoute>
+          } 
+        />
+        <Route 
+          path="/thank-you" 
+          element={
+            <ProtectedRoute requirePersonalInfo requireWorkExperience requireQuestionnaire>
+              <Step5_ThankYou />
+            </ProtectedRoute>
+          } 
+        />
       </Route>
     </Routes>
   );

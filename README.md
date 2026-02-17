@@ -2,6 +2,9 @@
 
 A multi-step application form built with React, TypeScript, and Vite. Features include form validation, local storage persistence, and a comprehensive testing suite.
 
+🔗 Live Demo: https://application-wizard.vercel.app/
+📦 Repository: https://github.com/xLax/application-wizard
+
 ## Features
 
 - 📝 Multi-step form with progress tracking

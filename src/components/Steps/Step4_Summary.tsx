@@ -93,14 +93,7 @@ export const Step4_Summary = () => {
     return (
         <div>
             {validationError && (
-                <div style={{
-                    padding: '1rem',
-                    marginBottom: '1rem',
-                    backgroundColor: '#fee2e2',
-                    border: '1px solid #ef4444',
-                    borderRadius: '0.5rem',
-                    color: '#991b1b'
-                }}>
+                <div className={styles.validationError}>
                     {validationError}
                 </div>
             )}

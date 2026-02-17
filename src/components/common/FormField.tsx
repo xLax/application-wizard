@@ -6,13 +6,15 @@ interface FormFieldProps extends React.InputHTMLAttributes<HTMLInputElement | HT
     textarea?: boolean;
 }
 
-export const FormField: React.FC<FormFieldProps> = ({ label, error, textarea, className = '', ...props }) => {
+export const FormField: React.FC<FormFieldProps> = ({ label, error, textarea, className = '', id, ...props }) => {
     const Component = textarea ? 'textarea' : 'input';
+    const inputId = id || props.name || `field-${Math.random().toString(36).substr(2, 9)}`;
 
     return (
         <div className="form-group">
-            <label className="form-label">{label}</label>
+            <label className="form-label" htmlFor={inputId}>{label}</label>
             <Component
+                id={inputId}
                 className={`form-input ${error ? 'error' : ''} ${className}`}
                 {...props}
             />

@@ -172,9 +172,10 @@ export const Step2_WorkExperience = () => {
                         />
 
                         <div className="form-group">
-                            <label className="form-label">End Date</label>
+                            <label className="form-label" htmlFor={`endDate-${exp.id}`}>End Date</label>
                             {!exp.isCurrentRole ? (
                                 <input
+                                    id={`endDate-${exp.id}`}
                                     type="date"
                                     value={exp.endDate}
                                     onChange={(e) => handleChange(exp.id, 'endDate', e.target.value)}

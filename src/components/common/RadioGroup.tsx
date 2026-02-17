@@ -34,7 +34,7 @@ export const RadioGroup: React.FC<RadioGroupProps> = ({
                             type="radio"
                             name={name}
                             value={option.value}
-                            checked={selectedValue === option.value}
+                            checked={selectedValue === option.value ? true : undefined}
                             onChange={() => onChange(option.value)}
                             className={styles.radio}
                         />

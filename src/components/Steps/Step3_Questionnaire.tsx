@@ -102,7 +102,7 @@ export const Step3_Questionnaire = () => {
                 />
 
                 <div className={`${styles.fileUploadGroup} form-group`}>
-                    <label className="form-label">Upload CV (PDF/DOCX) *</label>
+                    <label className="form-label" htmlFor="file-upload">Upload CV (PDF/DOCX) *</label>
                     <div className={`${styles.uploadArea} ${errors.cvFile ? styles.uploadAreaError : ''}`}>
                         <div className={styles.uploadContent}>
                             <Upload className={styles.uploadIcon} />

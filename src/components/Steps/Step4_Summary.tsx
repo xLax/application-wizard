@@ -1,13 +1,90 @@
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useApplication } from '../../context/ApplicationContext';
 import { FileText } from 'lucide-react';
+import { personalInfoSchema } from '../../schemas/validation';
+import { workExperienceItemSchema } from '../../schemas/validation';
 import styles from './Step4_Summary.module.css';
 
 export const Step4_Summary = () => {
     const { data } = useApplication();
     const navigate = useNavigate();
+    const [validationError, setValidationError] = useState<string | null>(null);
+
+    const validateAllSteps = (): { isValid: boolean; errorMessage: string; redirectTo?: string } => {
+        // Validate Personal Info
+        const personalInfoResult = personalInfoSchema.safeParse(data.personalInfo);
+        if (!personalInfoResult.success) {
+            return {
+                isValid: false,
+                errorMessage: 'Personal information is incomplete or invalid.',
+                redirectTo: '/'
+            };
+        }
+
+        // Validate Work Experience
+        if (data.workExperience.length > 0) {
+            for (const exp of data.workExperience) {
+                const expResult = workExperienceItemSchema.safeParse(exp);
+                if (!expResult.success) {
+                    return {
+                        isValid: false,
+                        errorMessage: 'Work experience information is incomplete or invalid.',
+                        redirectTo: '/work-experience'
+                    };
+                }
+            }
+        }
+
+        // Validate Questionnaire - check for unanswered questions
+        if (!data.questionnaire.legalAuthorization) {
+            return {
+                isValid: false,
+                errorMessage: 'Please answer all questions in the questionnaire.',
+                redirectTo: '/questionnaire'
+            };
+        }
+        if (!data.questionnaire.availableIn30Days) {
+            return {
+                isValid: false,
+                errorMessage: 'Please answer all questions in the questionnaire.',
+                redirectTo: '/questionnaire'
+            };
+        }
+        if (!data.questionnaire.relocationSupport) {
+            return {
+                isValid: false,
+                errorMessage: 'Please answer all questions in the questionnaire.',
+                redirectTo: '/questionnaire'
+            };
+        }
+
+        // Validate CV File - check if it's an actual File object, not just metadata
+        if (!data.questionnaire.cvFile || !(data.questionnaire.cvFile instanceof File)) {
+            return {
+                isValid: false,
+                errorMessage: 'Please upload your CV. If you refreshed the page, you need to re-upload the file.',
+                redirectTo: '/questionnaire'
+            };
+        }
+
+        return { isValid: true, errorMessage: '' };
+    };
 
     const handleSubmit = () => {
+        const validation = validateAllSteps();
+
+        if (!validation.isValid) {
+            setValidationError(validation.errorMessage);
+            // Optionally navigate to the step with errors after a delay
+            if (validation.redirectTo) {
+                setTimeout(() => {
+                    navigate(validation.redirectTo!);
+                }, 3000);
+            }
+            return;
+        }
+
         // Here you would typically send data to a backend
         console.log("Submitting Application:", data);
         navigate('/thank-you');
@@ -15,6 +92,19 @@ export const Step4_Summary = () => {
 
     return (
         <div>
+            {validationError && (
+                <div style={{
+                    padding: '1rem',
+                    marginBottom: '1rem',
+                    backgroundColor: '#fee2e2',
+                    border: '1px solid #ef4444',
+                    borderRadius: '0.5rem',
+                    color: '#991b1b'
+                }}>
+                    {validationError}
+                </div>
+            )}
+
             <h2 className={styles.pageTitle}>Review Your Application</h2>
 
             {/* Personal Info */}

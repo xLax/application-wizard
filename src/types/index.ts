@@ -19,9 +19,9 @@ export interface WorkExperience {
 }
 
 export interface Questionnaire {
-    legalAuthorization: 'yes' | 'no' | undefined; // Allow undefined for initial state
-    availableIn30Days: 'yes' | 'no' | undefined;
-    relocationSupport: 'yes' | 'no' | undefined;
+    legalAuthorization: 'yes' | 'no' | '';
+    availableIn30Days: 'yes' | 'no' | '';
+    relocationSupport: 'yes' | 'no' | '';
     cvFile: File | null;
 }
 

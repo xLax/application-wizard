@@ -3,7 +3,10 @@ import { z } from 'zod';
 export const personalInfoSchema = z.object({
     fullName: z.string().min(2, "Full Name is required"),
     email: z.string().email("Invalid email address"),
-    phone: z.string().min(10, "Phone number is required"),
+    phone: z.string()
+        .min(8, "Phone number must be at least 8 characters")
+        .max(12, "Phone number must not exceed 12 characters")
+        .regex(/^[+0-9]+$/, "Phone can only contain plus (+) and numbers"),
     city: z.string().min(1, "City is required"),
     country: z.string().min(1, "Country is required"),
     linkedinUrl: z.string().url("Invalid URL").optional().or(z.literal('')),

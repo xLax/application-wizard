@@ -34,6 +34,28 @@ export const Step3_Questionnaire = () => {
     };
 
     const handleNext = () => {
+        // Additional validation for empty strings (unanswered questions)
+        const validationErrors: Record<string, string> = {};
+
+        if (answers.legalAuthorization === '') {
+            validationErrors.legalAuthorization = 'Please answer this question';
+        }
+        if (answers.availableIn30Days === '') {
+            validationErrors.availableIn30Days = 'Please answer this question';
+        }
+        if (answers.relocationSupport === '') {
+            validationErrors.relocationSupport = 'Please answer this question';
+        }
+        if (!answers.cvFile) {
+            validationErrors.cvFile = 'Please upload your CV';
+        }
+
+        if (Object.keys(validationErrors).length > 0) {
+            setErrors(validationErrors);
+            setGlobalError("Please answer all questions and upload your CV.");
+            return;
+        }
+
         const result = questionnaireSchema.safeParse(answers);
 
         if (!result.success) {

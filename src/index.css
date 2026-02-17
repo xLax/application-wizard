@@ -53,6 +53,7 @@ body {
   /* max-w-4xl roughly */
   margin: 0 auto;
   padding: 0 1rem;
+  position: relative;
 }
 
 .app-title {
@@ -135,6 +136,13 @@ body {
 
 .step-label.current {
   color: var(--primary);
+}
+
+/* New Application Button */
+.new-app-btn {
+  position: absolute;
+  top: 0;
+  right: 1rem;
 }
 
 /* Main Content */

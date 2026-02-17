@@ -32,7 +32,7 @@ export const workExperienceItemSchema = z.object({
 });
 
 export const workExperienceSchema = z.object({
-    experiences: z.array(workExperienceItemSchema).refine((items) => items.every(item => {
+    experiences: z.array(workExperienceItemSchema).refine((items) => items.every(() => {
         // Double check individual items are valid - though array schema handles it mostly
         // This is more for the overall array validation if needed
         return true;
